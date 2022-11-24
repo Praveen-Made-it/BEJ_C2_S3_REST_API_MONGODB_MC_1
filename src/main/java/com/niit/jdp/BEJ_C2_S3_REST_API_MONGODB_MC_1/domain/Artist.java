@@ -34,4 +34,12 @@ public class Artist {
     public void setArtistName(String artistName) {
         this.artistName = artistName;
     }
+
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "artistId=" + artistId +
+                ", artistName='" + artistName + '\'' +
+                '}';
+    }
 }
