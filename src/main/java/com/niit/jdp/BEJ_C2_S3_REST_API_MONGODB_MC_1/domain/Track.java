@@ -59,4 +59,14 @@ public class Track {
     public void setTrackArtist(Artist trackArtist) {
         this.trackArtist = trackArtist;
     }
+
+    @Override
+    public String toString() {
+        return "Track{" +
+                "trackId=" + trackId +
+                ", trackName='" + trackName + '\'' +
+                ", trackRating=" + trackRating +
+                ", trackArtist=" + trackArtist +
+                '}';
+    }
 }
