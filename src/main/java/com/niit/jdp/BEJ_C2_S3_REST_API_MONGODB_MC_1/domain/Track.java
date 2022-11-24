@@ -18,4 +18,13 @@ public class Track {
     private double trackRating;
     private Artist trackArtist;
 
+    public Track() {
+    }
+
+    public Track(int trackId, String trackName, double trackRating, Artist trackArtist) {
+        this.trackId = trackId;
+        this.trackName = trackName;
+        this.trackRating = trackRating;
+        this.trackArtist = trackArtist;
+    }
 }
