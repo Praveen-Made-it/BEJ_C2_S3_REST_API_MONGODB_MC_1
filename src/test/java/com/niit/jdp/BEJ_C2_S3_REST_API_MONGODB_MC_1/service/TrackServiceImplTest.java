@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -62,4 +63,13 @@ public class TrackServiceImplTest {
         verify(trackRepository, times(1)).findById(any());
     }
 
+    //Test case for saving the track failure.
+    @Test
+    public void saveTrackFailure() throws TrackAlreadyExistsException {
+        when(trackRepository.findById(track1.getTrackId())).thenReturn(Optional.ofNullable(null));
+        when(trackRepository.save(any())).thenReturn(track2);
+        assertNotEquals(track1, trackService.saveTrack(track1));
+        verify(trackRepository, times(1)).save(any());
+        verify(trackRepository, times(1)).findById(any());
+    }
 }
