@@ -11,7 +11,7 @@ import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.domain.Track;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.ArtistNotFoundException;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.TrackAlreadyExistsException;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.TrackNotFoundException;
-import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.repository.TrackRepository;
+import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
