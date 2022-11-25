@@ -84,4 +84,15 @@ public class TrackServiceImplTest {
         verify(trackRepository, times(1)).deleteById(any());
         verify(trackRepository, times(1)).findById(any());
     }
+
+    //Test case for deleting the track Failure.
+    @Test
+    public void deleteTrackFailure() throws TrackNotFoundException {
+        when(trackRepository.findById(track1.getTrackId())).thenReturn(Optional.ofNullable(track1));
+        boolean flag = trackService.deleteTrack(track1.getTrackId());
+        assertNotEquals(false, flag);
+
+        verify(trackRepository, times(1)).deleteById(any());
+        verify(trackRepository, times(1)).findById(any());
+    }
 }
