@@ -67,9 +67,9 @@ public class TrackRepositoryTest {
         assertNotEquals(3, tracks.size());
         assertEquals(track.getTrackArtist().getArtistName(), tracks.get(0).getTrackArtist().getArtistName());
     }
-
-    @Test
     //Test case for retrieving all the track by Track Rating success
+    @Test
+
     public void getTrackByTrackRatingSuccess() {
         trackRepository.insert(track);
         artist = new Artist(1, "kala");
@@ -77,6 +77,19 @@ public class TrackRepositoryTest {
         trackRepository.insert(track);
         List<Track> tracks = trackRepository.findAllTracksFromRating();
         assertEquals(2, tracks.size());
+
+    }
+
+    //Test case for retrieving all the track by Track Rating failure
+    @Test
+
+    public void getTrackByTrackRatingFailure() {
+        trackRepository.insert(track);
+        artist = new Artist(1, "kala");
+        track = new Track(7, "vanam", 5, artist);
+        trackRepository.insert(track);
+        List<Track> tracks = trackRepository.findAllTracksFromRating();
+        assertNotEquals(7, tracks.size());
 
     }
 
