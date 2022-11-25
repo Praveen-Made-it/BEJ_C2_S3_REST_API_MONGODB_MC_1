@@ -10,6 +10,7 @@ package com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.service;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.domain.Artist;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.domain.Track;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.TrackAlreadyExistsException;
+import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.TrackNotFoundException;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.repository.TrackRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,6 +71,17 @@ public class TrackServiceImplTest {
         when(trackRepository.save(any())).thenReturn(track2);
         assertNotEquals(track1, trackService.saveTrack(track1));
         verify(trackRepository, times(1)).save(any());
+        verify(trackRepository, times(1)).findById(any());
+    }
+
+    //Test case for deleting the track Success.
+    @Test
+    public void deleteTrackSuccess() throws TrackNotFoundException {
+        when(trackRepository.findById(track1.getTrackId())).thenReturn(Optional.ofNullable(track1));
+        boolean flag = trackService.deleteTrack(track1.getTrackId());
+        assertEquals(true, flag);
+
+        verify(trackRepository, times(1)).deleteById(any());
         verify(trackRepository, times(1)).findById(any());
     }
 }
