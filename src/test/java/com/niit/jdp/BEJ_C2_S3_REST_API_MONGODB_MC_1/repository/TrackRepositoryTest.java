@@ -20,6 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @ExtendWith(SpringExtension.class)
 @DataMongoTest
@@ -46,13 +47,26 @@ public class TrackRepositoryTest {
     @Test
     // Test case for retrieving all the track by Artist Name success
     public void getTrackByArtistNameSuccess() {
-        artist = new Artist(2, "Neha");
-        track = new Track(2, "Kala Chashma", 8, artist);
+        artist = new Artist(2, "spb");
+        track = new Track(2, "mannil", 9, artist);
         trackRepository.insert(track);
         List<Track> tracks = trackRepository.findAllTracksFromArtistName(track.getTrackArtist().getArtistName());
         assertEquals(1, tracks.size());
         assertEquals(track.getTrackArtist().getArtistName(), tracks.get(0).getTrackArtist().getArtistName());
     }
+
+    @Test
+    // Test case for retrieving all the track by Artist Name failure
+    public void getTrackByArtistNameFailure() {
+
+        artist = new Artist(3, "spb");
+        track = new Track(4, "mannil", 8, artist);
+        trackRepository.insert(track);
+        List<Track> tracks = trackRepository.findAllTracksFromArtistName(track.getTrackArtist().getArtistName());
+        assertNotEquals(3, tracks.size());
+        assertEquals(track.getTrackArtist().getArtistName(), tracks.get(0).getTrackArtist().getArtistName());
+    }
+
 }
 
 
