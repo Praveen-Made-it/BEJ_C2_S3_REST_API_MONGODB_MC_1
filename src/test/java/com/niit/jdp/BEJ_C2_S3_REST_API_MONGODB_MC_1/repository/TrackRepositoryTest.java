@@ -41,14 +41,15 @@ public class TrackRepositoryTest {
     void tearDown() {
         artist = null;
         track = null;
+        trackRepository.deleteAll();
 
     }
 
     @Test
     // Test case for retrieving all the track by Artist Name success
     public void getTrackByArtistNameSuccess() {
-        artist = new Artist(2, "spb");
-        track = new Track(2, "mannil", 9, artist);
+        artist = new Artist(5, "spb");
+        track = new Track(5, "mannil", 9, artist);
         trackRepository.insert(track);
         List<Track> tracks = trackRepository.findAllTracksFromArtistName(track.getTrackArtist().getArtistName());
         assertEquals(1, tracks.size());
@@ -66,6 +67,19 @@ public class TrackRepositoryTest {
         assertNotEquals(3, tracks.size());
         assertEquals(track.getTrackArtist().getArtistName(), tracks.get(0).getTrackArtist().getArtistName());
     }
+
+    @Test
+    //Test case for retrieving all the track by Track Rating success
+    public void getTrackByTrackRatingSuccess() {
+        trackRepository.insert(track);
+        artist = new Artist(1, "kala");
+        track = new Track(7, "vanam", 5, artist);
+        trackRepository.insert(track);
+        List<Track> tracks = trackRepository.findAllTracksFromRating();
+        assertEquals(2, tracks.size());
+
+    }
+
 
 }
 
