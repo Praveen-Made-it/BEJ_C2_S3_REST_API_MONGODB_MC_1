@@ -38,4 +38,9 @@ public class TrackControllerTest {
         track = new Track(41, "Track41", 5, artist);
         mockMvc = MockMvcBuilders.standaloneSetup(trackController).build();
     }
+
+    @AfterEach
+    void tearDown() {
+        track = null;
+    }
 }
