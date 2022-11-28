@@ -4,13 +4,13 @@
  *Created With IntelliJ Idea Community Edition
  */
 
-
 package com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.domain.Artist;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.domain.Track;
+import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.TrackNotFoundException;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.service.TrackServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,6 +27,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,8 +46,8 @@ public class TrackControllerTest {
 
     @BeforeEach
     void setUp() {
-        artist = new Artist(41, "Artist41");
-        track = new Track(41, "Track41", 5, artist);
+        artist = new Artist(105, "SPB");
+        track = new Track(36, "SPB", 4, artist);
         mockMvc = MockMvcBuilders.standaloneSetup(trackController).build();
     }
 
@@ -77,5 +78,16 @@ public class TrackControllerTest {
                 .andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
         verify(trackService, times(1)).saveTrack(any());
 
+    }
+
+    @Test
+    public void deleteTrackSuccess() throws Exception, TrackNotFoundException {
+        when(trackService.deleteTrack(anyInt())).thenReturn(true);
+        mockMvc.perform(delete("/trackData/track/36")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonToString(track)))
+                .andExpect(status().is2xxSuccessful())
+                .andDo(MockMvcResultHandlers.print());
+        verify(trackService, times(1)).deleteTrack(anyInt());
     }
 }
